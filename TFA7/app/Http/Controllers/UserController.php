@@ -63,7 +63,7 @@ class UserController extends Controller
 
             if ($user->avatar){
                 $oldPath = public_path(
-                    'uploads/avatar/'.$user->avatar
+                    'uploads/avatars/'.$user->avatar
                 );
 
                 if (File::exists($oldPath)){
