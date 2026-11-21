@@ -1,67 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
-</head>
-<body>
-    <h1>Edit Task</h1>
+@extends('layouts.app')
 
-    @if ($errors->any())
-        <ul style="color:red;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+@section('title', 'Edit Task')
 
-    <form action="{{ route('tasks.update', $task) }}" method="POST">
-        @csrf
-        @method('PUT')
+@section('content')
+    <div class="card">
+        <h1>Edit Task</h1>
 
-        <div>
-            <label>Title:</label>
-            <input type="text" name="title" value="{{ old('title', $task->title) }}" required>
-        </div>
+        @if ($errors->any())
+            <ul style="color:red;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
-        <br>
+        <form action="{{ route('tasks.update', $task) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-        <div>
-            <label>Status:</label>
-            <select name="status" required>
+            <div>
+                <label>Title:</label>
+                <input type="text" name="title" value="{{ old('title', $task->title) }}" required>
+            </div>
 
-                <option
-                    value="pending"
-                    {{ old('status', $task->status) === 'pending' ? 'selected' : '' }}
-                >
-                    Pending
-                </option>
+            <br>
 
-                <option
-                    value="done"
-                    {{ old('status', $task->status) === 'done' ? 'selected' : '' }}
-                >
-                    Done
-                </option>
+            <div>
+                <label>Status:</label>
+                <select name="status" required>
 
-            </select>
-        </div>
+                    <option
+                        value="pending"
+                        {{ old('status', $task->status) === 'pending' ? 'selected' : '' }}
+                    >
+                        Pending
+                    </option>
 
-        <br>
+                    <option
+                        value="done"
+                        {{ old('status', $task->status) === 'done' ? 'selected' : '' }}
+                    >
+                        Done
+                    </option>
 
-        <div>
-            <label>Task Date:</label>
-            <input type="date" name="task_date" value="{{ old('task_date', $task->task_date->format('Y-m-d')) }}" required>
-        </div>
+                </select>
+            </div>
 
-        <br>
+            <br>
 
-        <button type="submit">Update Task</button>
-    </form>
+            <div>
+                <label>Task Date:</label>
+                <input type="date" name="task_date" value="{{ old('task_date', $task->task_date->format('Y-m-d')) }}" required>
+            </div>
 
-    <p>
-        <a href="{{ route('tasks') }}">Back to Task List</a>
-    </p>
-</body>
-</html>
+            <br>
+
+            <button type="submit">Update Task</button>
+        </form>
+
+        <p>
+            <a href="{{ route('tasks') }}">Back to Task List</a>
+        </p>
+    </div>
+@endsection

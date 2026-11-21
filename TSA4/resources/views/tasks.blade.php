@@ -18,6 +18,10 @@
                 <th>Task Title</th>
                 <th>Status</th>
                 <th>Task Date</th>
+
+                @auth
+                    <th>Actions</th>
+                @endauth
             </tr>
         </thead>
         <tbody>
@@ -28,6 +32,25 @@
                     <td>{{$task->title}}</td>
                     <td class="{{$task->status}}">{{ucfirst($task->status)}}</td>
                     <td>{{$task->task_date->format('F d, Y')}}</td>
+
+                    @auth
+                        <td>
+                            <a href="{{ route('tasks.edit', $task) }}">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" onclick="return confirm('Archive this task?')">
+                                    Delete
+                                </button>
+
+                            </form>
+                        </td>
+
+                    @endauth
                 </tr>
 
             @empty
@@ -40,5 +63,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection

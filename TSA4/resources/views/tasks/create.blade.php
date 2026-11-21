@@ -1,58 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Task</title>
-</head>
-<body>
-    <h1>Create New Task</h1>
+@extends('layouts.app')
 
-    @if ($errors->any())
-        <ul style="color:red;">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+@section('title', 'Create Task')
 
-    <form action="{{ route('tasks.store') }}" method="POST">
-        @csrf
+@section('content')
+    <div class="card">
+        <h1>Create New Task</h1>
 
-        <div>
-            <label>Title:</label>
-            <input type="text" name="title" value="{{ old('title') }}" required>
-        </div>
+        @if ($errors->any())
+            <ul style="color:red;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
 
-        <br>
+        <form action="{{ route('tasks.store') }}" method="POST">
+            @csrf
 
-        <div>
-            <label>Status:</label>
-            <select name="status" required>
-                <option value="pending" {{ old('status', 'pending') === 'pending' ? 'selected' : '' }}>
-                    Pending
-                </option>
+            <div>
+                <label>Title:</label>
+                <input type="text" name="title" value="{{ old('title') }}" required>
+            </div>
 
-                <option value="done" {{ old('status') === 'done' ? 'selected' : '' }}>
-                    Done
-                </option>
-            </select>
-        </div>
+            <br>
 
-        <br>
+            <div>
+                <label>Status:</label>
+                <select name="status" required>
+                    <option value="pending" {{ old('status', 'pending') === 'pending' ? 'selected' : '' }}>
+                        Pending
+                    </option>
 
-        <div>
-            <label>Task Date:</label>
-            <input type="date" name="task_date" value="{{ old('task_date') }}" required>
-        </div>
+                    <option value="done" {{ old('status') === 'done' ? 'selected' : '' }}>
+                        Done
+                    </option>
+                </select>
+            </div>
 
-        <br>
+            <br>
 
-        <button type="submit">Save Task</button>
-    </form>
+            <div>
+                <label>Task Date:</label>
+                <input type="date" name="task_date" value="{{ old('task_date') }}" required>
+            </div>
 
-    <p>
-        <a href="{{ route('tasks') }}">Back to Task List</a>
-    </p>
-</body>
-</html>
+            <br>
+
+            <button type="submit">Save Task</button>
+        </form>
+
+        <p>
+            <a href="{{ route('tasks') }}">Back to Task List</a>
+        </p>
+    </div>
+@endsection
